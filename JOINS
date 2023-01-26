@@ -38,3 +38,93 @@ SELECT SUM(ADVICEAMT), ADVICEDATE FROM LMS_TXN_ADVICE_DTL_16911 GROUP BY ADVICED
 
 -- QS.10
 SELECT ROUND(AVG(Interest_Component), 4) AS Average_Interest FROM LMS_REPAYSCH_DTL_16911;
+
+
+
+
+
+26-01-23 joins
+
+-- QS.1
+SELECT C.First_Name, P.Product_Name, P.Product_Category, A.Loan_Amount,A.Loan_Disbursal_Date, A.Repayment_Frequency
+FROM LMS_CUSTOMER_M_16911 C JOIN LMS_AGREEMENT_DTL_16911 A ON C.Customer_ID = A.Lessee_ID JOIN LMS_Product_M_16911 P
+ON A.Product_Code = P.Product_Code;
+
+-- QS.2
+SELECT A.Agreement_ID, C.First Name, T.Txn_Advice ID, T.ADVICEDATE, P. Payment_ID, T.ADVICEAMT, P.Payment_Date
+FROM LMS AGREEMENT DTL_ABHAYMANGAL_16886 A
+JOIN LMS CUSTOMER_M_ABHAYMANGAL 16886 C ON A. lessee_id-C.Customer_Id
+JOIN LMS_TXN_ADVICE_DTL ABHAYMANGAL 16886 T ON T.CASE_ID=A.Agreement_ID JOIN LMS_PAYMENT_DTL_ABHAYMANGAL 16886 P ON P.Txn_Advice_ID=T. Txn_Advice_ID
+WHERE Agreement_ID='&AGR_ID';
+
+-- QS.3
+SELECT * from LMS_TXN_ADVICE_DTL_16911 T JOIN LMS_PAYMENT_DTL_16911
+P ON P.TXN_ADVICE_ID = T.Txn_Advice_id JOIN LMS_CHEQUE_DTL_16911 C ON P.CHEQUE_ID = C.CHEQUE_ID
+WHERE CHEQUE_NUM = '&CHEQUE_NUM';
+
+-- QS.4
+SELECT COUNT(*) FROM LMS_AGREEMENT_DTL_16911 A JOIN LMS_TXN_ADVICE_DTL_16911 T ON A.agreement_id = T.case_id 
+JOIN LMS_PAYMENT_DTL_16911 P ON t.Txn_Advice_id = p.txn_advice_id
+WHERE A.Agreement_ID = '&AGR_';
+
+-- QS.5
+SELECT COUNT(*), SUM(C.Cheque_Amount) FROM
+LMS_AGREEMENT_DTL_16911 A JOIN LMS_TXN_ADVICE_DTL_16911 T
+ON a.agreement_id = t.case_id JOIN LMS_PAYMENT_DTL_16911 P CN t.txn_advice_id = p.txn_advice_id JOIN 
+LMS_CHEQUE_DTL_16911 C ON p.cheque_id = c.cheque_id WHERE A.Agreement_ID = "GR_ID" AND c.Payment_Mode = 'C' OR c.Payment_Mode = '0';
+ 
+-- QS.6
+SELECT COUNT(*), SUM(C.Cheque_Amount)FROM LMS_AGREEMENT_DTL_16911 A
+JOIN LMS_TXN_ADVICE_DTL_16911 T ON a.agreement_id = t.case_id
+JOIN LMS_PAYMENT_DTL_16911 P ON t.txn_advice_id = p.txn_advice_id JOIN LMS_CHEQUE_DTL_16911 C ON p.cheque_id = c.cheque_id
+WHERE A.Agreement_ID = '&AGR_ID" AND c.status='B';
+
+-- QS.7
+SELECT COUNT(*), SUM(C.Cheque Amount) FROM LMS_AGREEMENT_DTL_16911 A JOIN 
+LMS_TXN_ADVICE_DTL_16911 T ON a.agreement_id = t.case_id JOIN LMS_PAYMENT_DTL_16911 P 
+ON t.txn_advice_id = p.txn_advice_id JOIN LMS_CHEQUE_DTL_16911 C ON p.cheque_id = c.cheque_id
+WHERE c.Payment_Mode = 'C' OR c.Payment_Mode = 'Q';
+
+-- QS.8
+SELECT c.customer_id, c.first_name, c.last_name, ag.lessee_id, ag.agreement_id, ag.product_code, r.propinstId FROM LMS_CUSTOMER_M_16911 c
+JOIN LMS_AGREEMENT_DTL_16911 ag on c.customer_id = ag.lessee_id LEFT OUTER JOIN LMS_REPAYSCH_DTL_16911 I
+on ag.agreement_id = r.agreement_id where r.propinstid IS NULL and customer_id = 'customer_id";
+
+--QS.9
+SELECT C.First_Name, P.Product_Name, A.Loan_Amount FROM LMS_CUSTOMER_M_16911 C JOIN 
+LMS_AGREEMENT_DTL_16911 A ON A.Lessee_ID = C.Customer_Id JOIN LMS_PRODUCT_M_16911
+P ON P.Product_Code = a.product_code JOIN LMS_PRODUCT_CATEGORY_M_16911 PC ON P.Product Category - PC.Category_ID WHERE PC.Asset_Based = 'Y';
+
+--QS.10
+Select SUM(installment_amount) from LMS_REPAYSCH_DTL_16911 = WHERE r.installment_due_date <= 'date';
+
+-- QS.11
+SELECT c.customer_id, c.first_name, c.last_name, a.lessee_id
+FROM LMS_CUSTOMER_M_16911 c
+JOIN LMS_AGREEMENT_DTL__16911 a ON c.Customer_Id = a.lessee_id
+JOIN LMS_REPAYSCH_DTL_16911 R ON R.Agreement_ID = A.Agreement_ID JOIN LMS_TXN_ADVICE_DTL_16911 T ON A.Agreement_ID = T.Case_Id
+JOIN LMS_PAYMENT_DTL_16911 P ON T.Txn_Advice_id = P.Txn_Advice_id
+WHERE P.Payment_Date <- R.Installment_Due_Date;
+
+-- QS.12
+SELECT * FROM LMS_AGREEMENT_DTL_16911;
+
+SELECT p.Product_Name,p.Max_Tenure,p.Min_Tenure, pc.Asset_Based, pc.securedloan
+FROM LMS_PRODUCT_M_16911 p JOIN LMS_AGREEMENT_DTL_16911 a ON p.product_code = a.product_code JOIN LMS_PRODUCT_CATEGORY_M_16911 
+pc ON p.Product_Category = pc.Category_ID WHERE a.agreement_id = 'sagreement_id";
+
+-- QS.13
+SELECT * FROM LMS_REPAYSCH_DTL_16911;
+
+SELECT * FROM LMS_AGREEMENT_DTL_16911 ag JOIN LMS_REPAYSCH_DTL_16911 r ON ag.Agreement_ID = r.Agreement_ID
+WHERE r.PropInstID = 'PropInstID';
+
+-- QS.14
+SELECT * FROM LMS_AGREEMENT_DTL_16911 ;
+
+SELECT Loan Amount, Installment_Amount, Principal_Component, Interest_Component FROM LMS_AGREEMENT_DTL_16911 ag
+JOIN LMS_REPAYSCH_DTL_16911 r ON ag.Agreement_ID = r.Agreement_ID
+WHERE ag.Agreement_ID = '&Agreement_ID";
+
+-- QS.15
+SELECT * FROM LMS_CUSTOMER_M_16911 c JOIN LMS_AGREEMENT_DTL_16911 a ON c.customer_id = a.lessee_id WHERE a.agreement_id like '%Home%';
