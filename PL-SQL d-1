@@ -1,0 +1,266 @@
+PL/SQL Basics
+Practice 1: Evaluate each of the following declarations. Determine which of them are not legal and explain 
+why?
+a. DECLARE v_id NUMBER(4); 
+→ This is the right way to declare  variable.
+b. DECLARE v_x , v_y, v_z VARCHAR2(10); 
+→ We cannot declare multiple variables together in this format.
+c. DECLARE v_birthdate DATE NOT NULL; 
+→ Not correct as NOT NULL value must be assigned at the time of declare.
+d. DECLARE v_in_stock BOOLEAN : = 1;
+➔ This is not Correct because Boolean variable can only be assigned with True or False.
+Practice 2: What will be the output of the following program?
+DECLARE 
+v_data NUMBER(7);
+BEGIN
+DBMS_OUTPUT.PUT_LINE(v_data); 
+END;
+➔ The above procedure will create successfully but it will not give any output because v_data does not assigned with any value.
+Practice 3: 
+DECLARE 
+v_weight NUMBER (3):=600;
+v_message VARCHAR2(255):=‘Product 10012’;
+BEGIN 
+DECLARE 
+v_weight NUMBER(3) :=1; 
+v_message VARCHAR2 (25):=‘Product 11001’; 
+v_new_locn VARCHAR2(25):=‘Europe’;
+BEGIN 
+v_weight := v_weight +1; 
+v_new_locn:=‘Western ‘ ||v_new_locn; 
+-- Point 1
+END;
+v_weight:=v_weight + 1; 
+v_message:=v_message|| ‘ is in stock’; 
+-- Point 2 
+END;
+➔ AT POINT 1
+➔ AT POINT 2
+Practice 4: 
+Write a PL/SQL block that accepts values of two non zero numbers from user. The block performs the following 
+operation ( first_number/second_number + second_number). The result of the operation should be stored in a PL/SQL 
+variable and also displayed on the screen.
+DECLARE
+ VAR1 NUMBER(3);
+ VAR2 NUMBER(3);
+ RESULT NUMBER(3);
+BEGIN
+ VAR1 := &VAR1;
+ VAR2 := &VAR2; 
+ RESULT := (VAR1/VAR2)+VAR2;
+ DBMS_OUTPUT.PUT_LINE(RESULT);
+END;
+Practice 5: 
+Declare two SQL* plus variables named MAX_SALARY and MIN_SALARY that are of data type NUMBER. Write a PL/SQL 
+block that accepts deptno value from a user, selects the maximum salary and minimum salary paid in the department, 
+from the EMP table and stores the corresponding values in MAX_SALARY and MIN_SALARY respectively. Use appropriate 
+SQL * plus command to see the modified values of MAX_SALARY and MIN_SALARY.
+DECLARE
+ MAX_SALARY NUMBER;
+ MIN_SALARY NUMBER;
+ deptno NUMBER(3);
+BEGIN
+ deptno := &deptno;
+ select MAX(SALARY) INTO MAX_SALARY FROM EMPLOYEES1 WHERE DEPARTMENT_ID=deptno;
+ select MIN(SALARY) INTO MIN_SALARY FROM EMPLOYEES1 WHERE DEPARTMENT_ID=deptno;
+ DBMS_OUTPUT.PUT_LINE(MAX_SALARY||' '||MIN_SALARY);
+ END;
+/
+Practice 6:
+Write a PL/SQL block that accepts employee number from a user and retrieves the salary for the employee from the 
+EMP table. It determines the salary class as per the following criteria and displays the salary and salary class on the 
+screen Criteria for deciding salary class: •If the salary is less than 2500, then it comes under the class ‘LOW’ •If the salary 
+is greater than or equal to 2500 and less than 5000, then it comes under class ‘MEDIUM’. •If the salary is greater than or 
+equal to 5000, then it comes under class ‘HIGH’
+DECLARE
+ SAL NUMBER;
+ EMPNO NUMBER;
+BEGIN
+ EMPNO := &EMPNO;
+ SELECT SALARY INTO SAL FROM EMPLOYEES1 WHERE EMPLOYEE_ID = EMPNO;
+ IF(SAL<2500) THEN 
+ DBMS_OUTPUT.PUT_LINE('LOW');
+ ELSIF(SAL>=2500 AND SAL<5000) THEN
+ DBMS_OUTPUT.PUT_LINE('MEDIUM');
+ END IF; 
+ DBMS_OUTPUT.PUT_LINE('HIGH');
+END;
+/
+Practice 7: 
+Write a PL/SQL block that accepts an integer value between 1 and 12 from a user and displays the name of the 
+corresponding month. If the number input is not in the range +1 to +12 then the block should display the message 
+“Invalid Month” on the screen
+DECLARE
+ MONTH NUMBER;
+BEGIN
+ MONTH := &MONTH;
+ 
+ IF(MONTH=1) THEN 
+ DBMS_OUTPUT.PUT_LINE('JANUARY');
+ ELSIF(MONTH=2) THEN
+ DBMS_OUTPUT.PUT_LINE('FEBUARY');
+ ELSIF(MONTH=3) THEN
+ DBMS_OUTPUT.PUT_LINE('MARCH');
+ ELSIF(MONTH=4) THEN
+ DBMS_OUTPUT.PUT_LINE('APRIL');
+ ELSIF(MONTH=5) THEN
+ DBMS_OUTPUT.PUT_LINE('MAY');
+ ELSIF(MONTH=6) THEN
+ DBMS_OUTPUT.PUT_LINE('JUNE');
+ ELSIF(MONTH=7) THEN
+ DBMS_OUTPUT.PUT_LINE('JULY');
+ ELSIF(MONTH=8) THEN
+ DBMS_OUTPUT.PUT_LINE('AUGUST');
+ ELSIF(MONTH=9) THEN
+ DBMS_OUTPUT.PUT_LINE('SEP');
+ ELSIF(MONTH=10) THEN
+ DBMS_OUTPUT.PUT_LINE('OCTOBER');
+ ELSIF(MONTH=11) THEN
+ DBMS_OUTPUT.PUT_LINE('NOV');
+ ELSIF(MONTH=12) THEN
+ DBMS_OUTPUT.PUT_LINE('DECEMBER');
+ ELSE
+ DBMS_OUTPUT.PUT_LINE('INVALID OUTPUT');
+ END IF; 
+END;
+/
+Practice 8a:
+Write a PL/SQL block that accepts a positive number from a user and displays its factorial on 
+the screen
+DECLARE
+ N NUMBER := &N1;
+ FACT NUMBER := 1;
+BEGIN
+ WHILE N>0 LOOP
+ FACT := N*FACT;
+ N := N-1; 
+ END LOOP; 
+ DBMS_OUTPUT.PUT_LINE(FACT);
+END;
+/
+8b) Write a PL/SQL block that accepts a positive number ‘n’ from a user and displays a 
+Fibonacci series of ‘n’ numbers.
+DECLARE
+ PREV NUMBER := 0;
+ NEX NUMBER := 1;
+ FIB NUMBER;
+ N NUMBER := &N;
+BEGIN
+ IF(N=0) THEN
+ DBMS_OUTPUT.PUT_LINE(PREV);
+ ELSIF(N=1) THEN
+ DBMS_OUTPUT.PUT_LINE(PREV||' '||NEX);
+ ELSE
+ DBMS_OUTPUT.PUT_LINE(PREV||' '||NEX);
+ WHILE N>2 LOOP
+ FIB := PREV+NEX;
+ PREV := NEX;
+ NEX := FIB;
+ N := N-1; 
+ DBMS_OUTPUT.PUT_LINE(FIB);
+ END LOOP; 
+ END IF; 
+END;
+/
+8c)
+Write a PL/SQL block that accepts a positive number ‘n’ from a user and displays a Fibonacci 
+series whose last number is the largest integer lesser than or equal to ‘n’.
+DECLARE
+ PREV NUMBER := 0;
+ NEX NUMBER := 1;
+ FIB NUMBER := 0;
+ N NUMBER := &N;
+BEGIN
+ IF(N=0) THEN
+ DBMS_OUTPUT.PUT_LINE(PREV);
+ ELSIF(N=1) THEN
+ DBMS_OUTPUT.PUT_LINE(PREV);
+ ELSE
+ DBMS_OUTPUT.PUT_LINE(PREV||' '||NEX);
+ WHILE FIB<N LOOP
+ FIB := PREV+NEX;
+ PREV := NEX;
+ NEX := FIB; 
+ IF (NEX<N) THEN
+ DBMS_OUTPUT.PUT_LINE(FIB); 
+ END IF; 
+ END LOOP; 
+ END IF; 
+END;
+/
+8d)
+Write a PL/SQL block that accepts a positive number ‘n’ and displays whether that number is a 
+Prime number or not.
+DECLARE
+ N NUMBER := &N;
+ I NUMBER ;
+ COUN NUMBER := 0;
+BEGIN
+ FOR I IN 2..(N-1)
+ loop
+ IF (MOD(N,I)=0) THEN
+ COUN := COUN + 1;
+ END IF;
+ END LOOP;
+ 
+ IF COUN=0 THEN
+ DBMS_OUTPUT.PUT_LINE('PRIME NUMBER');
+ ELSE
+ DBMS_OUTPUT.PUT_LINE('NOT PRIME NUMBER');
+ END IF;
+END;
+/
+8e)
+Write a PL/SQL block that accepts a positive number ‘n’ and displays all the prime numbers 
+lesser than the given number ‘n’
+DECLARE
+ N NUMBER := &N;
+ I NUMBER ;
+ J NUMBER;
+ COUN NUMBER := 0;
+BEGIN
+DBMS_OUTPUT.PUT_LINE('2');
+FOR J IN 3..(N-1)
+LOOP
+ COUN :=0;
+ FOR I IN 2..(J-1)
+ LOOP
+ IF (MOD(J,I)=0) THEN
+ COUN := COUN + 1;
+ END IF;
+ END LOOP;
+ 
+ IF COUN=0 THEN
+ DBMS_OUTPUT.PUT_LINE(J);
+ END IF;
+END LOOP;
+END;
+/
+Practice 9:
+Write a PL/SQL block that accepts employee number from a user. Declare a PL/SQL record or a 
+composite variable to store the employee number, employee name, department number and 
+the department name of the employee. Retrieve the values of these columns for the employee 
+from the EMP and DEPT tables and display the employee name and the corresponding 
+department name on the screen.
+DECLARE
+ EMPID NUMBER := &EMPID;
+ EMP_NAME VARCHAR(30);
+ DEPTNO NUMBER;
+ DEPT_NAME VARCHAR;
+BEGIN
+ SELECT E1.FIRST_NAME, D.DEPARTMENT_ID, D.DEP_NAME INTO EMP_NAME, DEPTNO, 
+DEPT_NAME 
+ FROM EMPLOYEES1 E1 INNER JOIN DEPARTMENT D ON E1.EMPLOYEE_ID = D.DEPID;
+ DBMS_OUTPUT.PUT_LINE(EMP_NAME || ' '||DEPT_NAME);
+END;/
+Practice 10: 
+Write a PL/SQL block to add a department row in the DEPT table with the following 
+values for columns 
+a. The block retrieves the maximum value of deptno from the dept table and adds 
+1 to it to generate the value of deptno 
+b.Dname value should be ‘Education’ 
+DECLARE 
+ DEPTNO VARCHAR(30);
+ DEPTNAME VARCHAR(20) := 'Education';
+BEGIN
+ SELECT MAX(DEPID) into DEPTNO FROM DEPARTMENT;
