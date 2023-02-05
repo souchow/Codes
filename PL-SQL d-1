@@ -1,13 +1,12 @@
-qs-3
+double expenses = 5000;
+    double monthlyIncome = 10000;
+    double dbr = expenses / monthlyIncome;
 
-double taxPayable = 0;
-
-    if (taxableIncome <= 20000) {
-      taxPayable = 0;
-    } else if (taxableIncome <= 40000) {
-      taxPayable = (taxableIncome - 20000) * 0.1;
-    } else if (taxableIncome <= 60000) {
-      taxPayable = 20000 * 0.1 + (taxableIncome - 40000) * 0.2;
+    if (dbr <= 0.2) {
+      System.out.println("Loan Approved");
+    } else if (dbr > 0.4) {
+      System.out.println("Loan Rejected");
     } else {
-      taxPayable = 20000 * 0.1 + 20000 * 0.2 + (taxableIncome - 60000) * 0.3;
-    }
+      System.out.println("DBR is between 20% and 40%. Further evaluation needed.");
+    }
+
