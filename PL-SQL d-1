@@ -1,12 +1,12 @@
-double expenses = 5000;
-    double monthlyIncome = 10000;
-    double dbr = expenses / monthlyIncome;
+System.out.print("Enter effective monthly salary: ");
+    double effectiveMonthlySalary = scan.nextDouble();
+    double expenses = effectiveMonthlySalary * 0.2;
+    double maxEligibleEMI = (effectiveMonthlySalary - expenses) * 0.5;
+    System.out.print("Enter effective monthly rate: ");
+    double effectiveMonthlyRate = scan.nextDouble() / 12;
+    int tenure = 7;
+    double maxLoanAmount = maxEligibleEMI * ((Math.pow((1 + effectiveMonthlyRate), tenure) - 1) / (effectiveMonthlyRate * Math.pow((1 + effectiveMonthlyRate), tenure)));
+    System.out.println("Max eligible loan amount: " + maxLoanAmount);
+  }
 
-    if (dbr <= 0.2) {
-      System.out.println("Loan Approved");
-    } else if (dbr > 0.4) {
-      System.out.println("Loan Rejected");
-    } else {
-      System.out.println("DBR is between 20% and 40%. Further evaluation needed.");
-    }
 
