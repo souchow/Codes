@@ -1,4 +1,24 @@
+public class LoanRepaymentSchedule {
+  public static void main(String[] args) {
+    Scanner scan = new Scanner(System.in);
+    System.out.print("Enter loan amount: ");
+    double loanAmount = scan.nextDouble();
+    System.out.print("Enter interest rate: ");
+    double interestRate = scan.nextDouble() / 100;
+    System.out.print("Enter tenure in years: ");
+    int tenure = scan.nextInt();
+    System.out.print("Enter number of installments in a year: ");
+    int installmentsPerYear = scan.nextInt();
+    double residualValue = 0;
+    double interestRatePerInstallment = interestRate / installmentsPerYear;
+    int totalInstallments = tenure * installmentsPerYear;
+    double installmentAmount = (loanAmount * interestRatePerInstallment) / (1 - Math.pow((1 + interestRatePerInstallment), -totalInstallments));
+    double outstandingPrincipal = loanAmount;
+    System.out.println("Installment\tOpening Balance\tInterest\tPrincipal");
+    for (int i = 1; i <= totalInstallments; i++) {
+      double interest = outstandingPrincipal * interestRatePerInstallment;
+      double principal = installmentAmount - interest;
+      outstandingPrincipal -= principal;
+      System.out.println(i + "\t\t" + outstandingPrincipal + "\t\t" + interest + "\t\t" + principal);
 
-
-Scanner scan = new Scanner(System.in);
   
