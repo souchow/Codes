@@ -1,16 +1,4 @@
 
 
 Scanner scan = new Scanner(System.in);
-    System.out.print("Enter loan amount: ");
-    double loanAmount = scan.nextDouble();
-    System.out.print("Enter interest rate: ");
-    double interestRate = scan.nextDouble() / 100;
-    System.out.print("Enter tenure in years: ");
-    int tenure = scan.nextInt();
-    System.out.print("Enter number of installments in a year: ");
-    int installmentsPerYear = scan.nextInt();
-    double residualValue = 0;
-    double interestRatePerInstallment = interestRate / installmentsPerYear;
-    int totalInstallments = tenure * installmentsPerYear;
-    double installmentAmount = (loanAmount * interestRatePerInstallment) / (1 - Math.pow((1 + interestRatePerInstallment), -totalInstallments));
-    System.out.println("Installment amount: " + installmentAmount);
+  
