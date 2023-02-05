@@ -1,12 +1,2 @@
-System.out.print("Enter effective monthly salary: ");
-    double effectiveMonthlySalary = scan.nextDouble();
-    double expenses = effectiveMonthlySalary * 0.2;
-    double maxEligibleEMI = (effectiveMonthlySalary - expenses) * 0.5;
-    System.out.print("Enter effective monthly rate: ");
-    double effectiveMonthlyRate = scan.nextDouble() / 12;
-    int tenure = 7;
-    double maxLoanAmount = maxEligibleEMI * ((Math.pow((1 + effectiveMonthlyRate), tenure) - 1) / (effectiveMonthlyRate * Math.pow((1 + effectiveMonthlyRate), tenure)));
-    System.out.println("Max eligible loan amount: " + maxLoanAmount);
-  }
 
 
