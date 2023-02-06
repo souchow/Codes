@@ -1,0 +1,36 @@
+public class PrintNumber {
+  
+  //Method for printing integer
+  public void printn(int num) {
+    System.out.println("Integer: " + num);
+  }
+  
+  //Method for printing float
+  public void printn(float num) {
+    System.out.println("Float: " + num);
+  }
+  
+  //Method for printing double
+  public void printn(double num) {
+    System.out.println("Double: " + num);
+  }
+  
+  //Method for printing long
+  public void printn(long num) {
+    System.out.println("Long: " + num);
+  }
+  
+  //Method for printing short
+  public void printn(short num) {
+    System.out.println("Short: " + num);
+  }
+  
+  public static void main(String[] args) {
+    PrintNumber pn = new PrintNumber();
+    pn.printn(10);
+    pn.printn(10.5f);
+    pn.printn(100.5);
+    pn.printn(100L);
+    pn.printn((short)5);
+  }
+}
