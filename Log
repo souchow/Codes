@@ -59,5 +59,56 @@ public static void methodB() throws Exception {
 }
 
 
+------
+Java Program: Try-Catch-Throw-Throws
 
 
+Sourav Chowdhury
+Write a program to throw a checked exception explicitly using 'throw' keyword and
+
+a) Handle the exception in same method.
+
+b) use throws clause and handle the exception in some other method (calling method)
+
+c) Don't either handle or use the throws clause
+
+
+3 / 3
+
+a) Handling the exception in the same method:
+
+public class Main {
+public static void main(String[] args) {
+try {
+throw new Exception("Checked Exception");
+} catch (Exception e) {
+System.out.println("Caught exception in the same method: " + e);
+}
+}
+}
+
+b) Using throws clause and handling the exception in a calling method:
+
+public class Main {
+public static void throwException() throws Exception {
+throw new Exception("Checked Exception");
+}
+public static void main(String[] args) {
+    try {
+        throwException();
+    } catch (Exception e) {
+        System.out.println("Caught exception in the calling method: " + e);
+    }
+}
+}
+c) Neither handling the exception nor using the throws clause:
+
+public class Main {
+public static void throwException() {
+throw new RuntimeException("Unchecked Exception");
+}
+public static void main(String[] args) {
+    throwException();
+}
+}
+This program will result in an uncaught exception and will terminate the program with an error.
