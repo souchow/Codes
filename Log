@@ -1,99 +1,77 @@
 
-6. Write the classes as shown in the following class diagram.
+7. Create the LoanProduct class hierarchy according to the given Class Diagram.
+8. Make the base class – LoanProduct as an abstract class and the method as an abstract method. Use 
+upcasting to call the abstract method.
 CODE:
 package javaday5;
-public class Person {
- private String name;
- private String address;
- Person(){
- }
- Person(String name, String address){
- this.name = name;
- this.address = address;
- }
- public String getName() {
- return name;
- }
- public void setName(String name) {
- this.name = name;
- }
- public void setAddress(String address) {
- this.address = address;
- }
- public String toString(){
- return "Person[name = " + name + ", address = " + address + "]";
- }
+public abstract class LoanProduct{
+ private String loanProductCode;
+ private String loanProductName;
+ private boolean assetBased;
+ private String loanSecurityType;
+ private double minTenure;
+ private double maxTenure;
+ private double minLoanAmount;
+ private double maxLoanAmount;
+ private double roi;
+ private double ltv;
+ //We Must use upcasting to call this LTVCalculationAsPerCollatoralType() Method.
+ public abstract double LTVCalculationAsPerCollateralType(double LoanAmountAsked, double collateral);
 }
 package javaday5;
-public class Student extends Person{
- private String program;
- private int year;
- private double fee;
- Student(){
- }
- Student(String name, String address, String program,int year, double fee) {
- super(name, address);
- this.program = program;
- this.year = year;
- this.fee = fee;
- }
- public String getProgram() {
- return program;
- }
- public int getYear() {
- return year;
- }
- public double getFee() {
- return fee;
- }
- public void setProgram(String program) {
- this.program = program;
- }
- public void setYear(int year) {
- this.year = year;
- }
- public void setFee(double fee) {
- this.fee = fee;
- }
+import assignment1.UtilitiesAll;
+public class HomeLoan extends LoanProduct{
+ private String propertyType;
+ private String natureOfProperty;
+ private String propertyPurpose;
+ private String propertyOwnership;
+ private double marketValue;
+ private double builtUpArea;
+ private double carpetArea;
+ private double propertyAge;
  @Override
- public String toString(){
- return "Student[" + super.toString() +", program = " + getProgram() + ", year = " + getYear() + ", fee = " + getFee();
+ public double LTVCalculationAsPerCollateralType(double LoanAmountAsked,double collateral) {
+ return UtilitiesAll.calculateLTV(LoanAmountAsked,collateral);
  }
 }
 package javaday5;
-public class Staff extends Person{
- private String school;
- private double pay;
- Staff(String name, String address, String school, double pay){
- super(name, address);
- this.school = school;
- this.pay = pay;
- }
- public String getSchool() {
- return school;
- }
- public void setSchool(String school) {
- this.school = school;
- }
- public double getPay() {
- return pay;
- }
- public void setPay(double pay) {
- this.pay = pay;
- }
+import assignment1.UtilitiesAll;
+public class ConsumerVehicleLoan extends LoanProduct{
+ private String assetCategory; // AssetCategory
+ private String assetVariant; // AssetVariant
+ private String assetModel;
+ private String manufacturer;
+ private int yearOfManufacture;
+ private double assetCost;
+ private double downPayment;
  @Override
- public String toString(){
- return "Staff[" + super.toString() + ", school=" + getSchool() + ", pay=" + getPay();
+ public double LTVCalculationAsPerCollateralType(double LoanAmountAsked,double collateral) {
+ return UtilitiesAll.calculateLTV(LoanAmountAsked,collateral);
  }
 }
 package javaday5;
-public class PersonStudentStaffMain {
+import assignment1.UtilitiesAll;
+public class EducationLoan extends LoanProduct{
+ private String courseName;
+ private String collegeName;
+ private String courseType;
+ private String degreeType;
+ private String educationStream;
+ private double totalFees;
+ @Override
+ public double LTVCalculationAsPerCollateralType(double LoanAmountAsked,double collateral) {
+ return UtilitiesAll.calculateLTV(LoanAmountAsked,collateral);
+ }
+}
+package javaday5;
+public class LoanProductMain {
  public static void main(String[] args) {
- Person p = new Person("Sourav", "West Bengal");
- Student s = new Student("Sourav", "West Bengal","CSE", 4, 97600);
- Staff st = new Staff("Sourav", "West Bengal", "DNHS", 400);
- System.out.println(p);
- System.out.println(s);
- System.out.println(st);
+ LoanProduct homeLoan = new HomeLoan();
+ LoanProduct consumerLoan = new ConsumerVehicleLoan();
+ LoanProduct eduLoan = new EducationLoan();
+ System.out.println(homeLoan.LTVCalculationAsPerCollateralType(50000,175000));
+ System.out.println(consumerLoan.LTVCalculationAsPerCollateralType(50000,125000));
+ System.out.println(eduLoan.LTVCalculationAsPerCollateralType(125000,175000));
  }
 }
+
