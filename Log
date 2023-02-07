@@ -207,3 +207,29 @@ throw new Exception("Exception from bar");
 }
 
 }
+
+
+%%%%%%
+public class LoanNotApprovedException extends Exception {
+    public LoanNotApprovedException(String message) {
+        super(message);
+    }
+}
+
+public void approveLoan(Loan loan) throws LoanNotApprovedException {
+    // Read loan approval criteria from file
+    List<String> criteria = readCriteriaFromFile();
+
+    // Check loan against criteria
+    for (String criterion : criteria) {
+        if (!loan.meetsCriterion(criterion)) {
+            throw new LoanNotApprovedException("Loan not approved: Criteria " + criterion + " not met");
+        }
+    }
+
+    // Loan approved
+    loan.setApproved(true);
+}
+
+
+
