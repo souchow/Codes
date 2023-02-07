@@ -112,3 +112,66 @@ public static void main(String[] args) {
 }
 }
 This program will result in an uncaught exception and will terminate the program with an error.
+
+
+
+&&&&&
+
+Java Program: Try-Catch-Throw-Throws
+
+
+Sourav Chowdhury
+Write a program to throw an unchecked exception explicitly using 'throw' keyword and
+
+a) Handle the exception in same method.
+
+b) use throws clause and handle the exception in some other method (calling method) .
+c) Don't either handle or use the throws clause.
+
+
+4 / 4
+
+a) Handling the exception in the same method:
+
+public class UncheckedException {
+public static void main(String[] args) {
+try {
+throw new NullPointerException("Explicitly thrown unchecked exception");
+} catch (NullPointerException e) {
+System.out.println("Caught the exception: " + e);
+}
+}
+}
+
+b) Using throws clause and handling the exception in the calling method:
+
+public class UncheckedException {
+public static void main(String[] args) throws NullPointerException {
+throwException();
+}
+static void throwException() throws NullPointerException {
+throw new NullPointerException("Explicitly thrown unchecked exception");
+}
+}
+
+In the calling method:
+
+public class Main {
+public static void main(String[] args) {
+try {
+UncheckedException.main(args);
+} catch (NullPointerException e) {
+System.out.println("Caught the exception: " + e);
+}
+}
+}
+
+c) Not handling the exception and not using the throws clause:
+
+public class UncheckedException {
+public static void main(String[] args) {
+throw new NullPointerException("Explicitly thrown unchecked exception");
+}
+}
+
+This program will result in an uncaught exception and the program will terminate abnormally.
