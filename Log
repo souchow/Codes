@@ -175,3 +175,35 @@ throw new NullPointerException("Explicitly thrown unchecked exception");
 }
 
 This program will result in an uncaught exception and the program will terminate abnormally.
+
+
+rrrr
+
+Java Program: Try-Catch-Throw-Throws
+
+
+Sourav Chowdhury
+Write a program in which main method calls the foo method which calls the bar method. Bar method can throw a checked exception. Use throws for throwing the exception from bar. Don't handle exception in bar using try catch. Let the calling function handle the same.
+
+
+5 / 5
+
+public class Main {
+
+public static void main(String[] args) {
+try {
+foo();
+} catch (Exception e) {
+System.out.println("Caught exception: " + e);
+}
+}
+
+public static void foo() throws Exception {
+bar();
+}
+
+public static void bar() throws Exception {
+throw new Exception("Exception from bar");
+}
+
+}
