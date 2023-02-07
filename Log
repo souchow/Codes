@@ -179,6 +179,63 @@ public class LoanProductMain {
  System.out.println(consumerLoan.LTVCalculationAsPerCollateralType(50000,125000));
  System.out.println(eduLoan.LTVCalculationAsPerCollateralType(125000,175000));
  }
+
+Exception-------
+
+public static void main(String[] args) {
+    int[] arr = {1, 2, 3};
+
+    // a) Multiple catch blocks
+    try {
+        System.out.println(arr[3]);
+    } catch (ArrayIndexOutOfBoundsException e) {
+        System.out.println("Array index out of bounds");
+    } catch (Exception e) {
+        System.out.println("Exception caught");
+    }
+
+    // b) try-catch-finally combination
+    try {
+        System.out.println(1/0);
+    } catch (ArithmeticException e) {
+        System.out.println("Arithmetic exception caught");
+    } finally {
+        System.out.println("Finally block executed");
+    }
+
+    // c) try-finally combination
+    try {
+        System.out.println(arr[2]);
+    } finally {
+        System.out.println("Finally block executed");
+    }
+
+    // d) Exception propagation among many methods
+    try {
+        methodA();
+    } catch (Exception e) {
+        System.out.println("Exception caught in main method: " + e);
+    }
+
+    // e) Nested try blocks
+    try {
+        System.out.println(arr[3]);
+        try {
+            System.out.println(1/0);
+        } catch (ArithmeticException e) {
+            System.out.println("Arithmetic exception caught in nested try block");
+        }
+    } catch (ArrayIndexOutOfBoundsException e) {
+        System.out.println("Array index out of bounds in outer try block");
+    }
+}
+
+public static void methodA() throws Exception {
+    methodB();
+}
+
+public static void methodB() throws Exception {
+    throw new Exception("Exception thrown in methodB");
 }
 
 
