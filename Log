@@ -1,1 +1,24 @@
 
+BEGIN TRANSACTION;
+CREATE TABLE Customers(
+ CustomerId integer PRIMARY KEY,
+ CustomerName TEXT NOT NULL,
+ Addressline1 varchar(255) NOT NULL,
+ Addressline2 varchar(255),
+ Pincode integer,
+ PhoneNumber integer NOT NULL,
+ ContactPersonName TEXT,
+ RelationshipManagerName TEXT,
+ MaximumTransactionAmount integer
+);
+INSERT INTO Customers VALUES(1,'Nucleus Software', 'NOIDA', 'UP', 700052, 999999999, 'Ashok',
+'Neelam', 20);
+COMMIT;
+CREATE TABLE Department(
+DepartmentId integer NOT NULL,
+DepartmentCode integer,
+DepartmentName TEXT,
+PRIMARY KEY (DepartmentId),
+FOREIGN KEY (CustomerId) REFERENCES Customers(CustomerId)
+);
+SELECT * FROM Customers;
