@@ -228,3 +228,78 @@ public class Bank implements Maker,Operator{
  public void printAllCustomer() {
  }
 }
+
+
+ENUMSS______________---------------------------____________________-------------------------------______________________--------------------------
+
+package allenums;
+
+public enum AssetCategory {
+    CAR,
+    SCOOTER,
+    BIKE
+}
+package allenums;
+
+public enum AsssetVariant {
+    PETROL,
+    DIESEL,
+    CNG
+}
+
+package allenums;
+
+public enum CourseType {
+    PARTTIME,
+    REGULAR,
+    DISTANCE
+}
+
+package allenums;
+
+public enum DegreeType {
+    DIPLOMA,
+    GRADUATE,
+    POSTGRADUATE
+}
+
+package allenums;
+
+public enum EducationStream {
+    ENGINEERING,
+    MEDICAL,
+    MANAGEMENT,
+    TECHNICAL
+}
+
+package allenums;
+
+public enum NatureOfProperty{
+    RESIDENTIAL,
+    COMMERCIAL
+}
+
+package allenums;
+
+public enum PropertyOwnership {
+    FREEHOLD,
+    LEASE
+}
+
+
+package allenums;
+
+public enum PropertyPurpose {
+    RENT,
+    SELF
+}
+
+
+package allenums;
+
+public enum PropertyType {
+    SHOP,
+    OFFICE,
+    FLAT,
+    VILLA
+}
