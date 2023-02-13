@@ -1,305 +1,208 @@
-
-
-1. Create a Bank class and create an array of Customer in the Bank class according to the given class diagram below:
+JAVA DAY-8 ASSIGNMENT
+1. Test the following functionalities : 
+a. Create class – MyClass in package pack1. Create 4 method in this class with four different access specifiers – private, default, protected, public.
 CODE:
-package javaday6;
-import assignment2.Customer;
-import javaday5.LoanProduct;
-public class Bank{
- private Customer[] customers = new Customer[1000];
- private int size = 0;
- public void setCustomers(Customer[] customers) {
- this.customers = customers;
- }
- public Customer[] getCustomers() {
- return customers;
- }
- public boolean registerCustomer(Customer c){
- if(c == null){
- return false;
- }
- customers[size++] = c;
- return true;
- }
- public boolean findCustomer(Customer customer){
- for(Customer c : customers){
- if(c.equals(customer)){
- return true;
- }
- }
- return false;
- }
- public void printAllCustomers(){
- for(Customer c : customers){
- System.out.println(c.toString());
- }
- }
- public boolean deleteCustomer(int customerId){
- int check = 0;
- for(int i=0; i<customers.length; i++){
- if(customers[i].getCustomerId() == customerId){
- check = 1;
- break;
- }
- }
- if(check == 0){
- return false;
- }
- for (int i = 0; i < customers.length; i++) {
- customers[i] = customers[i+1];
- }
- return true;
- }
+package javaday8.pack1;
+
+public class MyClass {
+    public void method1(){
+        System.out.println("Showing from public method1 ");
+    }
+    private void method2(){
+        System.out.println("Showing from private method2");
+    }
+    protected void method3(){
+        System.out.println("Showing from protected method");
+    }
+    void method4(){
+        System.out.println("Showing from default method4");
+    }
 }
-2. Extend the functionality of Bank and add an array of LoanProduct as per the diagram below:
+b. Create a class TestClass outside the package and test which all methods are accessible.
 CODE:
-package javaday5;
-import javaday6.Bank;
-public abstract class LoanProduct extends Bank {
- private String loanProductCode;
- private String loanProductName;
- private boolean assetBased;
- private String loanSecurityType;
- private double minTenure;
- private double maxTenure;
- private double minLoanAmount;
- private double maxLoanAmount;
- private double roi;
- private double ltv;
- //We Must use upcasting to call this LTVCalculationAsPerCollatoralType() Method.
- public abstract double LTVCalculationAsPerCollateralType(double LoanAmountAsked, double collateral);
+import javaday8.pack1.MyClass;
+
+public class TestClass {
+    public static void main(String[] args) {
+        MyClass cl = new MyClass();
+        
+        cl.method1(); //Only method with public specifier is accessible
+        cl.method2(); //'method2()' has private access in 'javaday8.pack1.MyClass'
+        cl.method3(); //'method3()' has protected access in 'javaday8.pack1.MyClass'
+        cl.method4(); //'method4()' is not public in 'javaday8.pack1.MyClass'. Cannot be accessed from outside package
+    }
 }
-package javaday5;
-import allenums.NatureOfProperty;
-import allenums.PropertyOwnership;
-import allenums.PropertyPurpose;
-import allenums.PropertyType;
-import assignment1.UtilitiesAll;
-public class HomeLoan extends LoanProduct{
- private PropertyType propertyType;
- private NatureOfProperty natureOfProperty;
- private PropertyPurpose propertyPurpose;
- private PropertyOwnership propertyOwnership;
- private double marketValue;
- private double builtUpArea;
- private double carpetArea;
- private int propertyAge;
- @Override
- public double LTVCalculationAsPerCollateralType(double LoanAmountAsked,double collateral) {
- return UtilitiesAll.calculateLTV(LoanAmountAsked,collateral);
- }
-}
-package javaday5;
-import allenums.AssetCategory;
-import allenums.AsssetVariant;
-import assignment1.UtilitiesAll;
-public class ConsumerVehicleLoan extends LoanProduct{
- private AssetCategory assetCategory;
- private AsssetVariant assetVariant;
- private String assetModel;
- private String manufacturer;
- private int yearOfManufacture;
- private double assetCost;
- private double downPayment;
- @Override
- public double LTVCalculationAsPerCollateralType(double LoanAmountAsked,double collateral) {
- return UtilitiesAll.calculateLTV(LoanAmountAsked,collateral);
- }
-}
-package javaday5;
-import allenums.CourseType;
-import allenums.DegreeType;
-import allenums.EducationStream;
-import assignment1.UtilitiesAll;
-public class EducationLoan extends LoanProduct{
- private String courseName;
- private String collegeName;
- private CourseType courseType;
- private DegreeType degreeType;
- private EducationStream educationStream;
- private double totalFees;
- @Override
- public double LTVCalculationAsPerCollateralType(double LoanAmountAsked,double collateral) {
- return UtilitiesAll.calculateLTV(LoanAmountAsked,collateral);
- }
-}
-3. Create two interfaces – Maker and Operator. The interfaces are implemented by the Bank class and the 
-functionalities are as shown below
+c. Now create another class in package pack1 and test which all methods of MyClass are accessible and how
 CODE:
-package javaday6;
-import assignment2.Customer;
-import javaday5.LoanProduct;
-import assignment2.Customer;
-public interface Maker {
- public boolean registerCustomer(Customer customer);
- public boolean deleteCustomer(Customer customerId);
- public boolean addNewLoanProduct();
- public boolean removeLoanProduct(LoanProduct loanProductCode);
-}
-package javaday6;
-import assignment2.Customer;
-import javaday5.LoanProduct;
-public interface Operator {
- public void printAllLoanProducts();
- public void printLoanProductDetails(LoanProduct loanProductId);
- public void calculateLTVForLoanProducts();
- public Customer findCustomer(int customerId);
- public boolean findCustomer(String customer);
- public void printAllCustomer();
-}
-package javaday6;
-import assignment2.Customer;
-import javaday5.LoanProduct;
-public class Bank implements Maker,Operator{
- private Customer[] customers = new Customer[1000];
- private int size = 0;
- public void setCustomers(Customer[] customers) {
- this.customers = customers;
- }
- public Customer[] getCustomers() {
- return customers;
- }
- public boolean registerCustomer(Customer c){
- if(c == null){
- return false;
- }
- customers[size++] = c;
- return true;
- }
- @Override
- public boolean deleteCustomer(Customer customerId) {
- return false;
- }
- @Override
- public boolean addNewLoanProduct() {
- return false;
- }
- @Override
- public boolean removeLoanProduct(LoanProduct loanProductCode) {
- return false;
- }
- public boolean findCustomer(Customer customer){
- for(Customer c : customers){
- if(c.equals(customer)){
- return true;
- }
- }
- return false;
- }
- public void printAllCustomers(){
- for(Customer c : customers){
- System.out.println(c.toString());
- }
- }
- public boolean deleteCustomer(int customerId){
- int check = 0;
- for(int i=0; i<customers.length; i++){
- if(customers[i].getCustomerId() == customerId){
- check = 1;
- break;
- }
- }
- if(check == 0){
- return false;
- }
- for (int i = 0; i < customers.length; i++) {
- customers[i] = customers[i+1];
- }
- return true;
- }
- @Override
- public void printAllLoanProducts() {
- }
- @Override
- public void printLoanProductDetails(LoanProduct loanProductId) {
- }
- @Override
- public void calculateLTVForLoanProducts() {
- }
- @Override
- public Customer findCustomer(int customerId) {
- return null;
- }
- @Override
- public boolean findCustomer(String customer) {
- return false;
- }
- @Override
- public void printAllCustomer() {
- }
+package javaday8.pack1;
+
+public class TestClassPack1 {
+    public static void main(String[] args) {
+        MyClass cl = new MyClass();
+
+        cl.method1(); //All three methods except private specifier method are accessible
+        cl.method2(); //'method2()' has private access in 'javaday8.pack1.MyClass'
+        cl.method3(); 
+        cl.method4(); 
+    }
 }
 
 
-ENUMSS______________---------------------------____________________-------------------------------______________________--------------------------
 
-package allenums;
+d. Create a subclass of MyClass in package pack1 and test which all methods of MyClass are accessible and how
+CODE:
+package javaday8.pack1;
 
-public enum AssetCategory {
-    CAR,
-    SCOOTER,
-    BIKE
+public class SubClassOfMyClass extends MyClass{
+    public static void main(String[] args) {
+        MyClass cl = new MyClass();
+        
+        cl.method1();  //All three methods except private specifier method are accessible
+        cl.method2(); //'method2()' has private access in 'javaday8.pack1.MyClass'
+        cl.method3();
+        cl.method4();
+    }
 }
-package allenums;
+e. Create a subclass of MyClass outside package pack1 and test which all methods of MyClass are accessible and how
+CODE:
+import javaday8.pack1.MyClass;
 
-public enum AsssetVariant {
-    PETROL,
-    DIESEL,
-    CNG
+public class SubClassOfMyClass extends MyClass {
+    public static void main(String[] args) {
+        MyClass cl = new MyClass();
+
+        cl.method1();
+        cl.method2(); //'method2()' has private access in 'javaday8.pack1.MyClass'
+        cl.method3(); //'method3()' has protected access in 'javaday8.pack1.MyClass
+        cl.method4(); //'method4()' is not public in 'javaday8.pack1.MyClass'. Cannot be accessed from outside package
+    }
 }
+f. Create a package inside pack1 with the name subpack1. Create a class inside this subpack1 and test which all methods of MyClass are accessible and how
+CODE:
+package javaday8.pack1.subpack1;
 
-package allenums;
+import javaday8.pack1.MyClass;
 
-public enum CourseType {
-    PARTTIME,
-    REGULAR,
-    DISTANCE
-}
+public class Subpack1TestMyClass {
+    public static void main(String[] args) {
+        MyClass cl = new MyClass();
 
-package allenums;
-
-public enum DegreeType {
-    DIPLOMA,
-    GRADUATE,
-    POSTGRADUATE
-}
-
-package allenums;
-
-public enum EducationStream {
-    ENGINEERING,
-    MEDICAL,
-    MANAGEMENT,
-    TECHNICAL
-}
-
-package allenums;
-
-public enum NatureOfProperty{
-    RESIDENTIAL,
-    COMMERCIAL
+        cl.method1(); //Only method with public specifier is accessible
+        cl.method2(); //'method2()' has private access in 'javaday8.pack1.MyClass'
+        cl.method3(); //'method3()' has protected access in 'javaday8.pack1.MyClass
+        cl.method4(); //'method4()' is not public in 'javaday8.pack1.MyClass'. Cannot be accessed from outside package
+    }
 }
 
-package allenums;
+g. In the subpack1, create a class which is subclass of MyClass and test which all methods of MyClass are accessible and how?
+CODE:
+package javaday8.pack1.subpack1;
 
-public enum PropertyOwnership {
-    FREEHOLD,
-    LEASE
+import javaday8.pack1.MyClass;
+
+public class SubClassOfMyClass extends MyClass{
+    public static void main(String[] args) {
+        MyClass cl = new MyClass();
+
+        cl.method1(); //Only method with public specifier is accessible
+        cl.method2(); //'method2()' has private access in 'javaday8.pack1.MyClass'
+        cl.method3(); //'method3()' has protected access in 'javaday8.pack1.MyClass
+        cl.method4(); //'method4()' is not public in 'javaday8.pack1.MyClass'. Cannot be accessed from outside package
+    }
+}
+
+2. Combine all the classes created named below now into a single application and there
+must be a single MainClass as the starting point of the application. Segregate the
+classes and interfaces according to their functionalities in different packages. The
+logically related classes should be in same package. Check for the access specifiers
+which you have already placed for variables, constructors and method. Test which all
+access specifiers need to be used and why.
+The classes which need to be combined in a single application are:
+a. Customer
+b. LoanAgreement
+c. LoanProduct and its subclasses
+d. Interfaces
+e. Bank
+
+
+
+
+
+
+
+
+OUTPUT:
+ 
+
+3. Create an interface ‘MyIterator’ as mentioned below:
+CODE:
+
+public interface MyIterator {
+    public boolean hasNext();
+    public Object next();
+    public void remove();
+
+}
+4. Implement this interface as an InnerClass in Bank class to iterator over array of Customer Objects. Simultaneously remove all the objects where the monthlyIncome of the customer is less than 5lac.
+CODE:
+class BankIterator implements MyIterator{
+    int index = 0;
+    Bank bank = new Bank();
+
+    @Override
+    public boolean hasNext() {
+        if(index >= bank.noOfCustomers){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    @Override
+    public Object next() {
+        if(hasNext()){
+            return bank.customers[index++];
+        }
+    }
+
+    @Override
+    public void remove() {
+        bank.customers[index--] = null;
+    }
+    public MyIterator getIndex(){
+        MyIterator it = new IteratorCustomer();
+        return it;
+
+}
+
+}
+
+import banks.Bank;
+import banks.MyIterator;
+import customers.Customer;
+
+public class MainClass {
+    public static void main(String[] args) {
+        Customer cust = new Customer("Sourav", 433000, 150000);
+        bank.registerCustomer(cust);
+        MyIterator it = bank.myiterator();
+        bank.printAllCustomer();
+
+        While(it.hasNext()){
+            Customer customer = (Customer) it.next();
+            if(customer.getMonthlyIncome() > 500000){
+                it.remove();
+            }
+        }
+        bank.printAllCustomer();
+    }
 }
 
 
-package allenums;
-
-public enum PropertyPurpose {
-    RENT,
-    SELF
-}
 
 
-package allenums;
 
-public enum PropertyType {
-    SHOP,
-    OFFICE,
-    FLAT,
-    VILLA
-}
+
+
+
+
