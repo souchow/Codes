@@ -1,208 +1,26 @@
-JAVA DAY-8 ASSIGNMENT
-1. Test the following functionalities : 
-a. Create class – MyClass in package pack1. Create 4 method in this class with four different access specifiers – private, default, protected, public.
-CODE:
-package javaday8.pack1;
+package javaday9;
+import assignment2.Customer;
+import assignment2.Employee;
 
-public class MyClass {
-    public void method1(){
-        System.out.println("Showing from public method1 ");
-    }
-    private void method2(){
-        System.out.println("Showing from private method2");
-    }
-    protected void method3(){
-        System.out.println("Showing from protected method");
-    }
-    void method4(){
-        System.out.println("Showing from default method4");
-    }
-}
-b. Create a class TestClass outside the package and test which all methods are accessible.
-CODE:
-import javaday8.pack1.MyClass;
+import java.util.function.Consumer;
 
-public class TestClass {
+public class MonthlyIncomeGreaterThan5 {
     public static void main(String[] args) {
-        MyClass cl = new MyClass();
-        
-        cl.method1(); //Only method with public specifier is accessible
-        cl.method2(); //'method2()' has private access in 'javaday8.pack1.MyClass'
-        cl.method3(); //'method3()' has protected access in 'javaday8.pack1.MyClass'
-        cl.method4(); //'method4()' is not public in 'javaday8.pack1.MyClass'. Cannot be accessed from outside package
-    }
-}
-c. Now create another class in package pack1 and test which all methods of MyClass are accessible and how
-CODE:
-package javaday8.pack1;
+        Customer[] customer = new Customer[5];
+        customer[0] = new Customer(1, "Sourav", 433000);
+        customer[1] = new Customer(2, "Soumen", 560000);
+        customer[2] = new Customer(3, "Subhadip", 605000);
+        customer[3] = new Customer(4, "Sudip", 390000);
+        customer[4] = new Customer(5, "Sourav", 555000);
 
-public class TestClassPack1 {
-    public static void main(String[] args) {
-        MyClass cl = new MyClass();
-
-        cl.method1(); //All three methods except private specifier method are accessible
-        cl.method2(); //'method2()' has private access in 'javaday8.pack1.MyClass'
-        cl.method3(); 
-        cl.method4(); 
-    }
-}
-
-
-
-d. Create a subclass of MyClass in package pack1 and test which all methods of MyClass are accessible and how
-CODE:
-package javaday8.pack1;
-
-public class SubClassOfMyClass extends MyClass{
-    public static void main(String[] args) {
-        MyClass cl = new MyClass();
-        
-        cl.method1();  //All three methods except private specifier method are accessible
-        cl.method2(); //'method2()' has private access in 'javaday8.pack1.MyClass'
-        cl.method3();
-        cl.method4();
-    }
-}
-e. Create a subclass of MyClass outside package pack1 and test which all methods of MyClass are accessible and how
-CODE:
-import javaday8.pack1.MyClass;
-
-public class SubClassOfMyClass extends MyClass {
-    public static void main(String[] args) {
-        MyClass cl = new MyClass();
-
-        cl.method1();
-        cl.method2(); //'method2()' has private access in 'javaday8.pack1.MyClass'
-        cl.method3(); //'method3()' has protected access in 'javaday8.pack1.MyClass
-        cl.method4(); //'method4()' is not public in 'javaday8.pack1.MyClass'. Cannot be accessed from outside package
-    }
-}
-f. Create a package inside pack1 with the name subpack1. Create a class inside this subpack1 and test which all methods of MyClass are accessible and how
-CODE:
-package javaday8.pack1.subpack1;
-
-import javaday8.pack1.MyClass;
-
-public class Subpack1TestMyClass {
-    public static void main(String[] args) {
-        MyClass cl = new MyClass();
-
-        cl.method1(); //Only method with public specifier is accessible
-        cl.method2(); //'method2()' has private access in 'javaday8.pack1.MyClass'
-        cl.method3(); //'method3()' has protected access in 'javaday8.pack1.MyClass
-        cl.method4(); //'method4()' is not public in 'javaday8.pack1.MyClass'. Cannot be accessed from outside package
-    }
-}
-
-g. In the subpack1, create a class which is subclass of MyClass and test which all methods of MyClass are accessible and how?
-CODE:
-package javaday8.pack1.subpack1;
-
-import javaday8.pack1.MyClass;
-
-public class SubClassOfMyClass extends MyClass{
-    public static void main(String[] args) {
-        MyClass cl = new MyClass();
-
-        cl.method1(); //Only method with public specifier is accessible
-        cl.method2(); //'method2()' has private access in 'javaday8.pack1.MyClass'
-        cl.method3(); //'method3()' has protected access in 'javaday8.pack1.MyClass
-        cl.method4(); //'method4()' is not public in 'javaday8.pack1.MyClass'. Cannot be accessed from outside package
-    }
-}
-
-2. Combine all the classes created named below now into a single application and there
-must be a single MainClass as the starting point of the application. Segregate the
-classes and interfaces according to their functionalities in different packages. The
-logically related classes should be in same package. Check for the access specifiers
-which you have already placed for variables, constructors and method. Test which all
-access specifiers need to be used and why.
-The classes which need to be combined in a single application are:
-a. Customer
-b. LoanAgreement
-c. LoanProduct and its subclasses
-d. Interfaces
-e. Bank
-
-
-
-
-
-
-
-
-OUTPUT:
- 
-
-3. Create an interface ‘MyIterator’ as mentioned below:
-CODE:
-
-public interface MyIterator {
-    public boolean hasNext();
-    public Object next();
-    public void remove();
-
-}
-4. Implement this interface as an InnerClass in Bank class to iterator over array of Customer Objects. Simultaneously remove all the objects where the monthlyIncome of the customer is less than 5lac.
-CODE:
-class BankIterator implements MyIterator{
-    int index = 0;
-    Bank bank = new Bank();
-
-    @Override
-    public boolean hasNext() {
-        if(index >= bank.noOfCustomers){
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    @Override
-    public Object next() {
-        if(hasNext()){
-            return bank.customers[index++];
-        }
-    }
-
-    @Override
-    public void remove() {
-        bank.customers[index--] = null;
-    }
-    public MyIterator getIndex(){
-        MyIterator it = new IteratorCustomer();
-        return it;
-
-}
-
-}
-
-import banks.Bank;
-import banks.MyIterator;
-import customers.Customer;
-
-public class MainClass {
-    public static void main(String[] args) {
-        Customer cust = new Customer("Sourav", 433000, 150000);
-        bank.registerCustomer(cust);
-        MyIterator it = bank.myiterator();
-        bank.printAllCustomer();
-
-        While(it.hasNext()){
-            Customer customer = (Customer) it.next();
-            if(customer.getMonthlyIncome() > 500000){
-                it.remove();
+        FilterCustomers f = customer1 -> {
+            for(Customer i: customer){
+                if(i.getMonthlyIncome() * 12 >500000){
+                    System.out.println(i);
+                }
             }
-        }
-        bank.printAllCustomer();
+        };
+        System.out.println("Customer having more than 5 LPA salary : ");
+        f.check(customer);
     }
 }
-
-
-
-
-
-
-
-
-
