@@ -1,26 +1,25 @@
 package javaday9;
+
 import assignment2.Customer;
-import assignment2.Employee;
 
-import java.util.function.Consumer;
-
-public class MonthlyIncomeGreaterThan5 {
+public class CheckAgeBetween18And25 {
     public static void main(String[] args) {
         Customer[] customer = new Customer[5];
-        customer[0] = new Customer(1, "Sourav", 433000);
-        customer[1] = new Customer(2, "Soumen", 560000);
-        customer[2] = new Customer(3, "Subhadip", 605000);
-        customer[3] = new Customer(4, "Sudip", 390000);
-        customer[4] = new Customer(5, "Sourav", 555000);
+        customer[0] = new Customer(1, "Sourav", 21);
+        customer[1] = new Customer(2, "Soumen", 20);
+        customer[2] = new Customer(3, "Subhadip", 13);
+        customer[3] = new Customer(4, "Sudip", 25);
+        customer[4] = new Customer(5, "Sourav", 27);
+
 
         FilterCustomers f = customer1 -> {
             for(Customer i: customer){
-                if(i.getMonthlyIncome() * 12 >500000){
+                if(i.getAge() >= 18 && i.getAge() <= 25){
                     System.out.println(i);
                 }
             }
         };
-        System.out.println("Customer having more than 5 LPA salary : ");
+        System.out.println("Customers having age between 18 and 25 are : ");
         f.check(customer);
     }
 }
