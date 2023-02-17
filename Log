@@ -24,3 +24,12 @@ public class SortListAdapter implements Sorter {
         return sortedNumbers;
     }
 }
+
+
+
+public class NumberSorter{
+    public List<integer> sort(List<integer> numbers){
+        ( Collections.sort(numbers);
+        return numbers;
+    }
+}
