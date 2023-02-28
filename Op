@@ -1,0 +1,41 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+public class CustomerMasterTable {
+    public static void main(String[] args) {
+        String fileName = "customers.csv"; // Replace with your file name and path
+        String url = "jdbc:mysql://localhost:3306/mydatabase"; // Replace with your database URL
+        String username = "myuser"; // Replace with your database username
+        String password = "mypassword"; // Replace with your database password
+
+        try (Connection conn = DriverManager.getConnection(url, username, password)) {
+            String sql = "INSERT INTO customer_master (name, email, phone) VALUES (?, ?, ?)";
+            PreparedStatement statement = conn.prepareStatement(sql);
+
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] values = line.split(",");
+                String name = values[0];
+                String email = values[1];
+                String phone = values[2];
+
+                statement.setString(1, name);
+                statement.setString(2, email);
+                statement.setString(3, phone);
+
+                statement.executeUpdate();
+            }
+
+            System.out.println("Records inserted successfully");
+        } catch (SQLException e) {
+            System.err.println("Error inserting records: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+}
