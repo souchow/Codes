@@ -1,0 +1,74 @@
+function validateForm() {
+  // Mandatory fields validation
+  let firstName = document.forms["myForm"]["firstName"].value;
+  let lastName = document.forms["myForm"]["lastName"].value;
+  let houseNumber = document.forms["myForm"]["houseNumber"].value;
+  let dob = document.forms["myForm"]["dob"].value;
+  let country = document.forms["myForm"]["country"].value;
+  let state = document.forms["myForm"]["state"].value;
+  let city = document.forms["myForm"]["city"].value;
+  let experience = document.forms["myForm"]["experience"].value;
+
+  if (firstName == "" || lastName == "" || houseNumber == "" || dob == "" || country == "" || state == "" || city == "" || experience == "") {
+    alert("All fields marked with (*) are mandatory.");
+    return false;
+  }
+
+  // Date of Birth validation
+  let dobPattern = /^([0-9]{2})-([0-9]{2})-([0-9]{4})$/;
+  if (!dobPattern.test(dob)) {
+    alert("Date of Birth should be in the format of DD-MM-YYYY.");
+    return false;
+  }
+
+  // House Number validation
+  let houseNumberPattern = /^[0-9]+$/;
+  if (!houseNumberPattern.test(houseNumber)) {
+    alert("The House Number should be numeric only.");
+    return false;
+  }
+
+  // First Name and Last Name validation
+  let namePattern = /^[a-zA-Z]{3,}$/;
+  if (!namePattern.test(firstName) || !namePattern.test(lastName)) {
+    alert("First Name and Last Name must be alphabets only and contain minimum 3 characters.");
+    return false;
+  }
+
+  // Total Work Experience validation
+  if (experience < 0) {
+    alert("Total Work Experience must be a positive number only.");
+    return false;
+  }
+
+  // State and City validation based on country selection
+  let statesByCountry = {
+    "India": ["Maharashtra", "Gujarat", "Karnataka"],
+    "USA": ["California", "New York", "Texas"],
+    "Canada": ["Ontario", "Quebec", "Alberta"]
+  };
+
+  let citiesByState = {
+    "Maharashtra": ["Mumbai", "Pune", "Nagpur"],
+    "Gujarat": ["Ahmedabad", "Surat", "Vadodara"],
+    "Karnataka": ["Bangalore", "Mangalore", "Hubli"],
+    "California": ["Los Angeles", "San Francisco", "San Diego"],
+    "New York": ["New York City", "Buffalo", "Rochester"],
+    "Texas": ["Houston", "Austin", "Dallas"],
+    "Ontario": ["Toronto", "Ottawa", "Mississauga"],
+    "Quebec": ["Montreal", "Quebec City", "Laval"],
+    "Alberta": ["Calgary", "Edmonton", "Red Deer"]
+  };
+
+  if (statesByCountry[country].indexOf(state) == -1) {
+    alert("Please select a valid state for the selected country.");
+    return false;
+  }
+
+  if (citiesByState[state].indexOf(city) == -1) {
+    alert("Please select a valid city for the selected state.");
+    return false;
+  }
+
+  return true;
+}
